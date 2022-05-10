@@ -8,16 +8,17 @@ import ForgetPassword from './src/container/LoginS/ForgetPassword';
 import Register from './src/container/LoginS/Register';
 import GetStarted from './src/components/GetStarted';
 import OrderPlaced from './src/components/OrderPlaced';
-import {useFonts,Montserrat_700Bold,Montserrat_500Medium} from '@expo-google-fonts/montserrat';
+import Profile from './src/components/Profile';
+import {useFonts,Montserrat_700Bold,Montserrat_500Medium,Montserrat_400Regular} from '@expo-google-fonts/montserrat';
 
 const Stack = createStackNavigator();
 function App() {
-        let [fontsLoaded] = useFonts({Montserrat_700Bold,Montserrat_500Medium,});
+        let [fontsLoaded] = useFonts({Montserrat_700Bold,Montserrat_500Medium,Montserrat_400Regular});
         if (!fontsLoaded) {return <View></View>;}
         return (
         <NavigationContainer>
                 <Stack.Navigator>
-                <Stack.Screen name="GetStarted" options={{
+                        <Stack.Screen name="GetStarted" options={{
                                 headerShown: false,
                         }}component={GetStarted} />
                         <Stack.Screen name="Login" options={{
@@ -31,6 +32,7 @@ function App() {
                         }} component={OrderPlaced} />
                         <Stack.Screen name="ForgotPassword" component={ForgetPassword} />
                         <Stack.Screen name="Register" component={Register} />
+                        <Stack.Screen name="Profile" component={Profile} />
                 </Stack.Navigator>
         </NavigationContainer>
 );}
