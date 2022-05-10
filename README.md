@@ -1,1 +1,1 @@
-# BookStore
+# My first React Native project.
