@@ -1,9 +1,20 @@
-import React from 'react';
+import React, { useEffect }  from 'react';
 import {View,Image,StyleSheet,Text,TouchableOpacity} from 'react-native';
 import {useNavigation } from '@react-navigation/core';
+import {loadUser} from '../service/UserService';
 
 function GetStarted() {
   let navigation = useNavigation();
+  const onLoadUser = async ()=>{
+    let user = await loadUser();
+    console.log("userDetails:",user);
+    if(user.email){
+     navigation.navigate('DrawerApp')
+    }
+  }
+  useEffect(()=>{
+     onLoadUser();
+  })
   return (
     <View>
       <Image style={styles.stretch} source={require('./BookStore.jpg')}/>
