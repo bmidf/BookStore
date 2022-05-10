@@ -1,35 +1,26 @@
 
 import React, { Component } from "react";
-import {
-  AppRegistry,
-  KeyboardAvoidingView,
-  TouchableOpacity,
-  AsyncStorage,
-  Image,
-  TextInput,
-  StyleSheet, // CSS-like styles
-  Text, // Renders text
-  View // Container component
-} from "react-native";
+import { AppRegistry,KeyboardAvoidingView,TouchableOpacity,AsyncStorage,Image,TextInput,StyleSheet,Text,View } from "react-native";
+import {setUser} from '../../service/UserService'
 
 export default class Login extends Component {
-  
-  constructor() {
-    super();
-    this.state = {
-      email: "",
-      password: ""
-    };
-  }
+  constructor(props) {
+    super(props);
+}
+  state = {
+    email: 'admin',
+    password: 'admin'
+}
  
 onLoginButton = () => {
     if (this.state.email == this.state.password) {
-        this.props.navigation.navigate('DrawerApp', { name: this.state.email });
-        this.setState({
-            email: '',
-            password: ''
-        });
-
+      let loginUser =  {email:this.state.email};
+      setUser(loginUser);
+      this.props.navigation.navigate('DrawerApp', { name: this.state.email });
+      this.setState({
+          email: '',
+          password: ''
+      });
     } else {
         Alert.alert('Username/Password should be admin/admin.');
     }
@@ -37,10 +28,10 @@ onLoginButton = () => {
   render() {
     return (
       <View style={styles.container}>
-          <View style={ {flexDirection: "row"}}>
+          <View style={ styles.row}>
         <TouchableOpacity style={styles.buttonsContainer}>
           <Text
-            style={styles.loginnText}
+            style={styles.loginText}
             onPress={() => this.props.navigation.navigate("Login")}
             title="Sign up" >SIGN IN</Text>
         </TouchableOpacity>
@@ -81,16 +72,16 @@ onLoginButton = () => {
             </View>
             <TouchableOpacity style={[styles.buttonContainer, styles.loginButton]}
               onPress={() => this.onLoginButton()}>
-              <Text style={styles.loginText}>CONTINUE</Text>
+              <Text style={styles.logiinText}>LOGIN</Text>
             </TouchableOpacity>
 
 
-            <TouchableOpacity style={[styles.buttonaContainer, styles.loginsButton]} >
-          <Text
-            style={styles.loginsText}
-            onPress={() => this.props.navigation.navigate("ForgetPassword")}
-            title="Forget Password">FORGOT PASSWORD </Text>
-        </TouchableOpacity>
+            <TouchableOpacity style={[styles.buttonaContainer, styles.loginsButton]} 
+              onPress={() => this.props.navigation.navigate("ForgotPassword")}>
+            <Text
+              style={styles.loginsText}
+              title="Forget Password">FORGOT PASSWORD</Text>
+            </TouchableOpacity>
           </KeyboardAvoidingView>
         </View>
       </View>
@@ -100,8 +91,12 @@ onLoginButton = () => {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
-        backgroundColor: "white"
+      flex: 1,
+      backgroundColor: "white"
+    },
+    row:{
+      flexDirection: 'row',
+      marginTop: 80,
     },
     input: {
         height: 40,
@@ -112,7 +107,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
-        marginTop: 40,
+        marginTop: 50,
         marginBottom: 20,
         borderRadius: 30,
     },
@@ -121,7 +116,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
-        marginTop: 180,
+        marginTop: 100,
         marginBottom: 40,
         marginLeft: 80,
         width: 100,
@@ -133,7 +128,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
-        marginTop: 180,
+        marginTop: 100,
         marginBottom: 40,
         marginLeft: 20,
         width: 100,
@@ -165,21 +160,29 @@ const styles = StyleSheet.create({
     loginsButton:{
         color: "white",
     },
-    loginnText: {
+    loginText: {
         fontSize: 12,
         color: 'white',
     },
-    loginaText: {
-      fontSize: 12,
-      color: "#9599B3",
-    },
-    loginText: {
-      fontFamily: 'Montserrat_700Bold',
+    logiinText: {
+      fontSize: 16,
       color: 'white',
+      fontFamily: 'Montserrat_700Bold'
+  },
+    loginaText: {
+        fontSize: 12,
+        color: "#9599B3",
+        fontFamily: 'Montserrat_400Regular'
+    },
+    loginnText: {
+        fontSize: 12,
+        color: "white",
+        fontFamily: 'Montserrat_400Regular'
     },
     loginsText: {
-      fontFamily: 'Montserrat_700Bold',
-      color: "#6200EE",
+        fontSize: 16,
+        color: "#6200EE",
+        fontFamily: 'Montserrat_700Bold'
     }
 });
 
